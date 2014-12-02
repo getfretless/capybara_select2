@@ -30,7 +30,8 @@ module Capybara
         if options[:xpath].present?
           self.container = page.first(:xpath, options[:xpath])
         else
-          self.container = page.first("label", text: options[:from]).find(:xpath, '..').find(".select2-container")
+          label = page.first("label", text: options[:from]) || page.first(options[:from])
+          self.container = label.find(:xpath, '..').find(".select2-container")
         end
       end
 
